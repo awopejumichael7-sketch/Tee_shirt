@@ -1,0 +1,64 @@
+rules_version = '2';
+
+/**
+ * Firestore Security Rules — 2026 Camp Meeting T-Shirt App
+ * CAC Good Works Assembly
+ *
+ * Paste this into Firebase Console → Firestore Database → Rules, or deploy
+ * with the Firebase CLI (`firebase deploy --only firestore:rules`).
+ *
+ * Design:
+ *  - products, settings: public read (the storefront needs them), admin-only write.
+ *  - orders: anyone can CREATE an order (checkout must work with no login),
+ *            but only a signed-in admin can READ the full order list or
+ *            UPDATE/DELETE an order (status changes, soft delete).
+ *  - counters: admin-only read, and the increment happens through a
+ *              transaction that only ever increases the value by exactly 1,
+ *              enforced below so order numbers can't be tampered with.
+ *
+ * NOTE on public order tracking: this app's "Check My Order" screen reads
+ * a single order document directly by its order number. Because Firestore
+ * rules cannot hide individual *fields* of a document from an unauthenticated
+ * reader (only allow/deny the whole document), a determined visitor who
+ * already knows a specific order number could technically also read that
+ * order's phone/email fields directly from Firestore (not from this app's
+ * UI, which never displays them). If that residual risk matters for your
+ * event, move order tracking behind a Cloud Function that reads the order
+ * with admin privileges server-side and returns only the safe fields
+ * (items, totals, statuses) — see README.md for a starting point.
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /orders/{orderId} {
+      allow get: if true;              // needed for public order-number tracking
+      allow list: if isAdmin();         // admin dashboard only — no browsing all orders
+      allow create: if request.resource.data.orderNumber == orderId
+                    && request.resource.data.paymentStatus == "Pending"
+                    && request.resource.data.orderStatus == "Order Received"
+                    && request.resource.data.deleted == false;
+      allow update, delete: if isAdmin();
+    }
+
+    match /counters/{counterId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin() ||
+                    (request.resource.data.value == resource.data.value + 1);
+    }
+  }
+}

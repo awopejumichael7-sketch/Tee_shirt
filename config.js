@@ -34,7 +34,7 @@ const CONFIG = {
   COLLECTION_METHODS: ["Church Collection"],
 
   // Sizes offered for every design. Change centrally.
-  SIZES: ["S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL", "XXXXXXL"],
+  SIZES: ["S", "M", "L", "XL", "XXL"],
 
   // ---------------------------------------------------------------------
   // PRODUCT CATALOGUE (day-one seed data)
@@ -46,7 +46,7 @@ const CONFIG = {
       id: "design-1",
       name: "Design 1 — Radiant Pink",
       color: "Pink",
-      image: "design-pink.jpg",
+      image: "images/design-pink.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -55,7 +55,7 @@ const CONFIG = {
       id: "design-2",
       name: "Design 2 — Royal Purple",
       color: "Purple",
-      image: "design-purple.jpg",
+      image: "images/design-purple.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -64,7 +64,7 @@ const CONFIG = {
       id: "design-3",
       name: "Design 3 — Classic Black",
       color: "Black",
-      image: "design-black.jpg",
+      image: "images/design-black.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -103,3 +103,37 @@ function isValidNigerianPhone(value) {
   const v = value.replace(/[\s-]/g, "");
   return /^(0\d{10}|(\+?234)\d{10})$/.test(v);
 }
+
+/**
+ * =========================================================================
+ * FIREBASE CONFIGURATION  (additive — does not affect anything above)
+ * =========================================================================
+ * This app runs perfectly well without this section (it falls back to the
+ * local database in js/db.js automatically). Fill in the values below with
+ * your own Firebase project's config — copied from:
+ * Firebase Console → Project Settings → General → "Your apps" → Web app →
+ * SDK setup and configuration → Config.
+ *
+ * Leave FIREBASE.enabled as false until you've filled in every value below
+ * and created the Firestore database + Authentication admin user described
+ * in README.md → "Connecting a real shared database (Firebase)".
+ * =========================================================================
+ */
+const FIREBASE = {
+  enabled: false, // set to true once the config below is filled in
+
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+
+  // Firestore collection names — change only if you want different names.
+  collections: {
+    products: "products",
+    orders: "orders",
+    settings: "settings",
+    counters: "counters",
+  },
+};
