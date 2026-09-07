@@ -34,7 +34,7 @@ const CONFIG = {
   COLLECTION_METHODS: ["Church Collection"],
 
   // Sizes offered for every design. Change centrally.
-  SIZES: ["S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL", "XXXXXXL"],
+  SIZES: ["S", "M", "L", "XL", "XXL"],
 
   // ---------------------------------------------------------------------
   // PRODUCT CATALOGUE (day-one seed data)
@@ -46,7 +46,7 @@ const CONFIG = {
       id: "design-1",
       name: "Design 1 — Radiant Pink",
       color: "Pink",
-      image: "design-pink.jpg",
+      image: "images/design-pink.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -55,7 +55,7 @@ const CONFIG = {
       id: "design-2",
       name: "Design 2 — Royal Purple",
       color: "Purple",
-      image: "design-purple.jpg",
+      image: "images/design-purple.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -64,7 +64,7 @@ const CONFIG = {
       id: "design-3",
       name: "Design 3 — Classic Black",
       color: "Black",
-      image: "design-black.jpg",
+      image: "images/design-black.jpg",
       price: 6000,
       active: true,
       available: true,
@@ -120,14 +120,15 @@ function isValidNigerianPhone(value) {
  * =========================================================================
  */
 const FIREBASE = {
-  enabled: true, // set to true once the config below is filled in
+  enabled: false, // set to true once the config below is filled in
 
-  apiKey: "AIzaSyCrp8w8xFGshrbKv3oYtweHO3FKQ01RNyg",
-    authDomain: "freely-d147e.firebaseapp.com",
-    projectId: "freely-d147e",
-    storageBucket: "freely-d147e.firebasestorage.app",
-    messagingSenderId: "793101680954",
-    appId: "1:793101680954:web:1c04b29dffdd5460381003"
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+
   // Firestore collection names — change only if you want different names.
   collections: {
     products: "products",
