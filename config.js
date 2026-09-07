@@ -120,14 +120,15 @@ function isValidNigerianPhone(value) {
  * =========================================================================
  */
 const FIREBASE = {
-  enabled: false, // set to true once the config below is filled in
+  enabled: true, // set to true once the config below is filled in
 
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyCrp8w8xFGshrbKv3oYtweHO3FKQ01RNyg",
+  authDomain: "freely-d147e.firebaseapp.com",
+  projectId: "freely-d147e",
+  storageBucket: "freely-d147e.firebasestorage.app",
+  messagingSenderId: "793101680954",
+  appId: "1:793101680954:web:1c04b29dffdd5460381003"
+
 
   // Firestore collection names — change only if you want different names.
   collections: {
