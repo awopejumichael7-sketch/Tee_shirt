@@ -34,7 +34,7 @@ const CONFIG = {
   COLLECTION_METHODS: ["Church Collection"],
 
   // Sizes offered for every design. Change centrally.
-  SIZES: ["S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL", "XXXXXXL"],
+  SIZES: ["S", "M", "L", "XL", "XXL"],
 
   // ---------------------------------------------------------------------
   // PRODUCT CATALOGUE (day-one seed data)
