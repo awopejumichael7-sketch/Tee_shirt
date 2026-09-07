@@ -1,0 +1,15 @@
+{
+  "name": "2026 Camp Meeting T-Shirt — CAC Good Works Assembly",
+  "short_name": "Camp Meeting Shirt",
+  "description": "Order your official 2026 Camp Meeting T-shirt — Freely Given, Romans 8:32.",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#14110d",
+  "theme_color": "#14110d",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 Camp Meeting T-Shirt — CAC Good Works Assembly</title>
+<meta name="description" content="Order your official 2026 Camp Meeting T-shirt — Freely Given, Romans 8:32.">
+<meta name="theme-color" content="#14110d">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brandmark" id="logoHome">
+      <span class="name">CAC Good Works Assembly</span>
+      <span class="tag">2026 CAMP MEETING</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="navTrack">Track Order</button>
+      <button class="icon-btn" id="navCart">🛒 <span class="cart-count hidden" id="cartCountTop">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ===================== SCREEN: LANDING ===================== -->
+  <section class="screen" id="screen-landing">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <span class="hero-church">CAC GOOD WORKS ASSEMBLY</span>
+          <span class="hero-event">2026 CAMP MEETING</span>
+        </div>
+        <h1 class="hero-theme">Freely Given</h1>
+        <p class="hero-scripture">Romans 8:32</p>
+        <p class="hero-heading">2026 Camp Meeting T-Shirt</p>
+        <p class="hero-sub">Get your official Camp Meeting T-shirt.</p>
+        <div class="hero-price">
+          <span class="amount" id="heroPrice">₦6,000</span>
+          <span class="label">PER SHIRT</span>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-gold btn-block" id="ctaOrder">Order Your T-Shirt</button>
+          <button class="btn btn-outline-light btn-block" id="ctaTrack">Check My Order</button>
+        </div>
+        <p class="hero-note">Choose your preferred design, size, colour and quantity. You can add multiple shirts with different designs to one order.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-kicker">Product Catalogue</div>
+        <h2 class="section-title">Choose Your Design</h2>
+        <p class="section-sub">Three official designs. Pick as many as you like — add each to one cart.</p>
+      </div>
+      <div class="catalogue-grid" id="catalogueGridLanding"></div>
+    </div>
+
+    <div class="section" style="padding-top:0;">
+      <div class="howto">
+        Select a design, choose colour, size and quantity, then add it to your order. Repeat with any other design — your cart keeps everything together and totals it automatically.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: SHOP ===================== -->
+  <section class="screen hidden" id="screen-shop">
+    <div class="progress" id="progressBar"></div>
+    <div class="screen-header">
+      <h2>Choose Your Design</h2>
+    </div>
+    <div class="section" style="padding-top:16px;">
+      <div class="catalogue-grid" id="catalogueGridShop"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: CART ===================== -->
+  <section class="screen hidden" id="screen-cart">
+    <div class="progress" id="progressBarCart"></div>
+    <div class="screen-header"><h2>Your Order</h2></div>
+    <div class="screen-body">
+      <div id="cartList"></div>
+      <div id="cartEmpty" class="empty-state hidden">
+        <div class="icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Choose a T-shirt design to get started.</p>
+        <div style="margin-top:18px;"><button class="btn btn-primary" id="browseFromEmptyCart">Browse Designs</button></div>
+      </div>
+      <div id="cartTotalsWrap" class="totals-box hidden">
+        <div class="totals-row"><span>Subtotal</span><span id="cartSubtotal">₦0</span></div>
+        <div class="totals-row grand"><span>Total</span><span id="cartTotal">₦0</span></div>
+      </div>
+      <div class="sheet-actions" id="cartActions">
+        <button class="btn btn-gold btn-block" id="proceedToOrder">Proceed to Order</button>
+        <button class="btn btn-ghost btn-block" id="continueShopping">+ Add Another Shirt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: CUSTOMER DETAILS ===================== -->
+  <section class="screen hidden" id="screen-details">
+    <div class="progress" id="progressBarDetails"></div>
+    <div class="screen-header"><h2>Customer Information</h2></div>
+    <div class="screen-body">
+      <form id="detailsForm" novalidate>
+        <div class="field">
+          <label for="fldName">Full Name</label>
+          <input type="text" id="fldName" placeholder="e.g. John Doe" autocomplete="name">
+          <div class="field-error">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="fldPhone">Phone Number</label>
+          <input type="tel" id="fldPhone" placeholder="e.g. 08012345678" autocomplete="tel">
+          <div class="field-error">Please enter a valid Nigerian phone number.</div>
+        </div>
+        <div class="field">
+          <label for="fldWhatsapp">WhatsApp Number</label>
+          <input type="tel" id="fldWhatsapp" placeholder="e.g. 08012345678" autocomplete="tel">
+          <div class="field-error">Please enter a valid Nigerian WhatsApp number.</div>
+        </div>
+        <div class="field">
+          <label for="fldEmail">Email Address <span style="font-weight:400;color:var(--text-muted);">(optional)</span></label>
+          <input type="email" id="fldEmail" placeholder="e.g. you@email.com" autocomplete="email">
+          <div class="field-error">Please enter a valid email address.</div>
+        </div>
+        <div class="field">
+          <label for="fldBranch">Location / Branch <span style="font-weight:400;color:var(--text-muted);">(optional)</span></label>
+          <input type="text" id="fldBranch" placeholder="e.g. Main Camp">
+        </div>
+        <div class="field">
+          <label>Collection Method</label>
+          <div class="radio-group" id="collectionGroup"></div>
+        </div>
+        <button type="submit" class="btn btn-gold btn-block" style="margin-top:6px;">Continue to Payment</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: PAYMENT ===================== -->
+  <section class="screen hidden" id="screen-payment">
+    <div class="progress" id="progressBarPayment"></div>
+    <div class="screen-header"><h2>Payment Information</h2></div>
+    <div class="screen-body">
+      <div class="pay-highlight">
+        <div class="label">YOUR TOTAL</div>
+        <div class="amount" id="payTotal">₦0</div>
+        <div class="label" id="payShirtCount">0 shirts</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Bank Details</div>
+        <div class="bank-detail"><span class="k">Account Number</span><span class="v" id="payAccNumber"></span></div>
+        <div class="bank-detail"><span class="k">Account Name</span><span class="v" id="payAccName"></span></div>
+        <div class="bank-detail"><span class="k">Bank</span><span class="v" id="payBank"></span></div>
+        <div class="copy-row" style="margin-top:12px;">
+          <button class="btn btn-outline btn-sm" id="copyAccBtn">Copy Account Number</button>
+        </div>
+        <div class="copy-toast" id="copyToast">Account number copied!</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Amount to Pay</div>
+        <div class="pay-highlight" style="padding:16px;">
+          <div class="label">AMOUNT TO PAY</div>
+          <div class="amount" style="font-size:28px;" id="payAmountAgain">₦0</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="goToSummary" style="margin-top:18px;">Continue to Review Order</button>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: SUMMARY / SUBMIT ===================== -->
+  <section class="screen hidden" id="screen-summary">
+    <div class="progress" id="progressBarSummary"></div>
+    <div class="screen-header"><h2>Order Summary</h2></div>
+    <div class="screen-body">
+      <div class="card">
+        <div class="card-title">Customer</div>
+        <div id="summaryCustomer"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Order Items</div>
+        <div id="summaryItems"></div>
+        <div class="totals-box">
+          <div class="totals-row"><span>Total Shirts</span><span id="summaryShirtCount">0</span></div>
+          <div class="totals-row grand"><span>Total Amount</span><span id="summaryTotal">₦0</span></div>
+        </div>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="confirmCheck">
+        <span>I confirm that my order details are correct.</span>
+      </label>
+      <button class="btn btn-gold btn-block" id="placeOrderBtn">Place Order</button>
+      <p class="field-error" id="placeOrderError" style="display:none;margin-top:10px;text-align:center;"></p>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: CONFIRMATION ===================== -->
+  <section class="screen hidden" id="screen-confirmation">
+    <div class="screen-body">
+      <div class="confirm-hero">
+        <div class="confirm-check">✓</div>
+        <h2>Order Successful!</h2>
+        <p style="color:var(--text-muted);margin-top:6px;">Thank you for your order.</p>
+        <div class="order-number-box">
+          <div style="font-size:12px;letter-spacing:.08em;color:rgba(250,246,236,.65);">YOUR ORDER NUMBER</div>
+          <div class="num" id="confOrderNumber">CGA-2026-00000</div>
+          <div class="hint">Please save this number — you'll need it to check your order status.</div>
+        </div>
+        <div class="totals-box" style="text-align:left;">
+          <div class="totals-row"><span>Number of Shirts</span><span id="confShirtCount">0</span></div>
+          <div class="totals-row"><span>Payment Status</span><span>Pending</span></div>
+          <div class="totals-row grand"><span>Total</span><span id="confTotal">₦0</span></div>
+        </div>
+        <div class="sheet-actions">
+          <button class="btn whatsapp-btn btn-block" id="confWhatsapp">Send Payment Evidence on WhatsApp</button>
+          <button class="btn btn-outline btn-block" id="confTrack">Check Order Status</button>
+          <button class="btn btn-ghost btn-block" id="confPrint">Print Receipt</button>
+          <button class="btn btn-ghost btn-block" id="confNewOrder">Start a New Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN: TRACK ORDER ===================== -->
+  <section class="screen hidden" id="screen-track">
+    <div class="screen-header"><h2>Check My Order</h2></div>
+    <div class="screen-body">
+      <div class="card">
+        <div class="field">
+          <label for="trackInput">Enter your Order Number</label>
+          <input type="text" id="trackInput" placeholder="e.g. CGA-2026-00027">
+        </div>
+        <button class="btn btn-primary btn-block" id="trackBtn">Check Status</button>
+      </div>
+      <div id="trackResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== PRINT RECEIPT (hidden, used for window.print) ===================== -->
+<div id="printReceipt" class="hidden"></div>
+
+<!-- ===================== CONFIGURE PRODUCT SHEET ===================== -->
+<div class="overlay hidden" id="configOverlay">
+  <div class="sheet">
+    <div class="sheet-head">
+      <span class="sheet-title" id="configTitle">Configure Shirt</span>
+      <button class="sheet-close" id="configClose">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="config-image"><img id="configImage" src="" alt=""></div>
+      <div class="field">
+        <label for="configColor">Colour</label>
+        <select id="configColor"></select>
+      </div>
+      <div class="field" id="configSizeField">
+        <label for="configSize">Size</label>
+        <select id="configSize">
+          <option value="">Select Size</option>
+        </select>
+        <div class="field-error">Please select a size.</div>
+      </div>
+      <div class="field">
+        <label>Quantity</label>
+        <div class="qty-control">
+          <button class="qty-btn" id="qtyMinus" type="button">−</button>
+          <span class="qty-value" id="qtyValue">1</span>
+          <button class="qty-btn" id="qtyPlus" type="button">+</button>
+        </div>
+      </div>
+      <div class="config-price-row">
+        <span class="label">Price</span>
+        <span class="value" id="configPrice">₦6,000</span>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn btn-gold btn-block" id="addToCartBtn">Add to Cart</button>
+        <button class="btn btn-ghost btn-block" id="configCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <strong>CAC Good Works Assembly</strong> · 2026 Camp Meeting · Freely Given · Romans 8:32<br>
+  Questions? <a href="#" id="footerWhatsapp">Contact us on WhatsApp</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — 2026 Camp Meeting T-Shirt · CAC Good Works Assembly</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div class="login-shell" id="loginShell">
+  <div class="login-card">
+    <div class="brand">
+      <div class="name">CAC Good Works Assembly</div>
+      <div class="tag">2026 CAMP MEETING · ADMIN</div>
+    </div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      <div class="login-error" id="loginError">Incorrect username or password.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== ADMIN SHELL ===================== -->
+<div class="admin-shell hidden" id="adminShell">
+  <aside class="admin-side" id="adminSide">
+    <div class="brand">
+      <div class="name">Camp Meeting Admin</div>
+      <div class="tag">CAC Good Works Assembly</div>
+    </div>
+    <nav class="admin-nav">
+      <button data-view="dashboard" class="active">📊 Dashboard</button>
+      <button data-view="orders">🧾 Orders</button>
+      <button data-view="production">🏭 Production Report</button>
+      <button data-view="analytics">📈 Design &amp; Size Analytics</button>
+      <button data-view="settings">⚙️ Settings</button>
+    </nav>
+    <div class="logout">
+      <button class="btn btn-outline-light btn-block btn-sm" id="logoutBtn">Log Out</button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="icon-btn menu-btn no-print" id="menuBtn" style="display:none;background:var(--ink);">☰</button>
+        <h1 id="viewTitle">Dashboard</h1>
+      </div>
+      <a href="index.html" class="btn btn-ghost btn-sm no-print" target="_blank">View Customer Site ↗</a>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div class="view" id="view-dashboard">
+        <div class="stat-grid">
+          <div class="stat-card"><div class="label">Total Orders</div><div class="value" id="statOrders">0</div></div>
+          <div class="stat-card"><div class="label">Total Shirts</div><div class="value" id="statShirts">0</div></div>
+          <div class="stat-card accent"><div class="label">Expected Revenue</div><div class="value" id="statExpected">₦0</div></div>
+          <div class="stat-card good"><div class="label">Confirmed Payments</div><div class="value" id="statConfirmed">₦0</div></div>
+          <div class="stat-card warn"><div class="label">Pending Payments</div><div class="value" id="statPending">₦0</div></div>
+          <div class="stat-card"><div class="label">Ready for Collection</div><div class="value" id="statReady">0</div></div>
+          <div class="stat-card"><div class="label">Collected</div><div class="value" id="statCollected">0</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Newest Orders</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Order #</th><th>Customer</th><th>Shirts</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody id="dashboardRecentRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="view hidden" id="view-orders">
+        <div class="admin-toolbar">
+          <input type="text" id="orderSearch" placeholder="Search order #, name, or phone">
+          <select id="filterPayment"><option value="">All Payment Statuses</option></select>
+          <select id="filterStatus"><option value="">All Order Statuses</option></select>
+          <select id="filterDesign"><option value="">All Designs</option></select>
+          <select id="sortOrders">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="highest">Highest Amount</option>
+            <option value="lowest">Lowest Amount</option>
+          </select>
+          <button class="btn btn-outline btn-sm" id="exportAllCsv">Export CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Order #</th><th>Customer</th><th>Phone</th><th>Shirts</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="ordersRows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PRODUCTION REPORT -->
+      <div class="view hidden" id="view-production">
+        <div class="admin-toolbar no-print">
+          <button class="btn btn-outline btn-sm" id="printProduction">Print Report</button>
+          <button class="btn btn-outline btn-sm" id="exportProductionCsv">Export CSV</button>
+        </div>
+        <div id="productionTables"></div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="view hidden" id="view-analytics">
+        <div class="card">
+          <div class="card-title">Design Sales</div>
+          <div id="designSales"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Size Breakdown</div>
+          <div id="sizeBreakdown"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="view hidden" id="view-settings">
+        <div class="card">
+          <div class="card-title">Store Settings</div>
+          <form id="settingsForm" class="form-grid two">
+            <div class="field"><label>Church Name</label><input type="text" id="setChurch"></div>
+            <div class="field"><label>Event Name</label><input type="text" id="setEvent"></div>
+            <div class="field"><label>Theme</label><input type="text" id="setTheme"></div>
+            <div class="field"><label>Scripture</label><input type="text" id="setScripture"></div>
+            <div class="field"><label>T-Shirt Price (₦)</label><input type="number" id="setPrice" min="0"></div>
+            <div class="field"><label>WhatsApp Number (intl format)</label><input type="text" id="setWhatsapp"></div>
+            <div class="field"><label>Account Number</label><input type="text" id="setAccNumber"></div>
+            <div class="field"><label>Account Name</label><input type="text" id="setAccName"></div>
+            <div class="field"><label>Bank</label><input type="text" id="setBank"></div>
+            <div></div>
+            <button type="submit" class="btn btn-primary" style="grid-column:1/-1;">Save Settings</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Product Management</div>
+          <div id="productAdminList"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Change Admin Password</div>
+          <form id="passwordForm" class="form-grid two">
+            <div class="field"><label>New Password</label><input type="password" id="newPassword" minlength="6"></div>
+            <div></div>
+            <button type="submit" class="btn btn-outline" style="grid-column:1/-1;">Update Password</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ORDER DETAIL MODAL ===================== -->
+<div class="overlay hidden" id="orderModalOverlay">
+  <div class="sheet modal-panel">
+    <div class="sheet-head">
+      <span class="sheet-title" id="modalOrderNumber">Order</span>
+      <button class="sheet-close" id="modalClose">✕</button>
+    </div>
+    <div class="sheet-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
