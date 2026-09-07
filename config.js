@@ -127,7 +127,7 @@ const FIREBASE = {
   projectId: "freely-d147e",
   storageBucket: "freely-d147e.firebasestorage.app",
   messagingSenderId: "793101680954",
-  appId: "1:793101680954:web:1c04b29dffdd5460381003"
+  appId: "1:793101680954:web:1c04b29dffdd5460381003",
 
 
   // Firestore collection names — change only if you want different names.
