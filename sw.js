@@ -1,13 +1,14 @@
-const CACHE_NAME = "camp-meeting-shell-v1";
+const CACHE_NAME = "camp-meeting-shell-v2";
 const SHELL_FILES = [
   "index.html",
-  "css/styles.css",
-  "js/config.js",
-  "js/db.js",
-  "js/app.js",
-  "images/design-pink.jpg",
-  "images/design-purple.jpg",
-  "images/design-black.jpg",
+  "styles.css",
+  "config.js",
+  "db.js",
+  "firebase-db.js",
+  "app.js",
+  "design-pink.jpg",
+  "design-purple.jpg",
+  "design-black.jpg",
 ];
 
 self.addEventListener("install", (event) => {

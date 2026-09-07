@@ -20,6 +20,7 @@
   const adminShell = document.getElementById("adminShell");
 
   async function checkSession() {
+    await (window.DB_READY || Promise.resolve());
     if (DB.hasSession()) {
       loginShell.classList.add("hidden");
       adminShell.classList.remove("hidden");
@@ -29,6 +30,7 @@
 
   document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+    await (window.DB_READY || Promise.resolve());
     const user = document.getElementById("loginUser").value.trim();
     const pass = document.getElementById("loginPass").value;
     const ok = await DB.verifyAdmin(user, pass);

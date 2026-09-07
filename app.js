@@ -578,6 +578,7 @@
   // Init
   // ---------------------------------------------------------------------
   async function init() {
+    await (window.DB_READY || Promise.resolve());
     state.products = await DB.getProducts();
     state.settings = await DB.getSettings();
     document.getElementById("heroPrice").textContent = money(state.settings.price || CONFIG.PRICE);

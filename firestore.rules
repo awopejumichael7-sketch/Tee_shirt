@@ -12,9 +12,12 @@ rules_version = '2';
  *  - orders: anyone can CREATE an order (checkout must work with no login),
  *            but only a signed-in admin can READ the full order list or
  *            UPDATE/DELETE an order (status changes, soft delete).
- *  - counters: admin-only read, and the increment happens through a
- *              transaction that only ever increases the value by exactly 1,
- *              enforced below so order numbers can't be tampered with.
+ *  - counters: public get() only (needed by the checkout transaction that
+ *              issues the next order number before the customer is signed
+ *              in) — listing the collection stays admin-only, and the
+ *              increment happens through a transaction that only ever
+ *              increases the value by exactly 1, enforced below so order
+ *              numbers can't be tampered with.
  *
  * NOTE on public order tracking: this app's "Check My Order" screen reads
  * a single order document directly by its order number. Because Firestore
@@ -37,12 +40,21 @@ service cloud.firestore {
 
     match /products/{productId} {
       allow read: if true;
-      allow write: if isAdmin();
+      // "create" (not update/delete) is left open so the app's one-time,
+      // empty-collection seed (js/firebase-db.js -> seedIfEmpty) can run
+      // the very first time anyone loads the app, before an admin has
+      // signed in. Once a product document exists, only an admin can
+      // change or remove it.
+      allow create: if true;
+      allow update, delete: if isAdmin();
     }
 
     match /settings/{docId} {
       allow read: if true;
-      allow write: if isAdmin();
+      // Same reasoning as products: allow the initial seed write, then
+      // lock changes to admin only.
+      allow create: if true;
+      allow update, delete: if isAdmin();
     }
 
     match /orders/{orderId} {
@@ -56,9 +68,18 @@ service cloud.firestore {
     }
 
     match /counters/{counterId} {
-      allow read: if isAdmin();
-      allow write: if isAdmin() ||
+      // Every checkout reads this document inside a transaction
+      // (js/firebase-db.js -> nextOrderNumber) before the customer is
+      // authenticated, so "get" must be public. There is only ever one
+      // fixed counter document, so this does not expose a listable
+      // collection — "list" still requires admin.
+      allow get: if true;
+      allow list: if isAdmin();
+      // The one-time seed creates this document at value 0.
+      allow create: if isAdmin() || request.resource.data.value == 0;
+      allow update: if isAdmin() ||
                     (request.resource.data.value == resource.data.value + 1);
+      allow delete: if isAdmin();
     }
   }
 }

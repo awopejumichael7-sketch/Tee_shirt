@@ -30,11 +30,13 @@
 
   if (typeof FIREBASE === "undefined" || !FIREBASE.enabled) {
     console.info("[Firebase] Disabled — running on the local database (js/db.js).");
+    window.DB_READY = Promise.resolve();
     return;
   }
 
   if (typeof firebase === "undefined") {
     console.warn("[Firebase] FIREBASE.enabled is true but the Firebase SDK did not load. Falling back to the local database.");
+    window.DB_READY = Promise.resolve();
     return;
   }
 
@@ -47,6 +49,7 @@
     fsAuth = firebase.auth();
   } catch (err) {
     console.error("[Firebase] Initialization failed — falling back to the local database.", err);
+    window.DB_READY = Promise.resolve();
     return;
   }
 
@@ -216,7 +219,7 @@
   // untouched: they already work fine as a same-device UI session guard
   // on top of Firebase Auth's own persisted sign-in.
   // -----------------------------------------------------------------------
-  seedIfEmpty()
+  window.DB_READY = seedIfEmpty()
     .then(() => {
       Object.assign(DB, {
         getProducts,
